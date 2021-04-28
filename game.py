@@ -15,6 +15,7 @@ land_bg = pygame.image.load('./shooting range assets/Land_BG.png')
 water_bg = pygame.image.load('./shooting range assets/Water_BG.png')
 cloud1 = pygame.image.load('./shooting range assets/Cloud1.png')
 cloud2 = pygame.image.load('./shooting range assets/Cloud2.png')
+crosshair = pygame.image.load('./shooting range assets/crosshair.png')
 
 # Animations
 land_position_y = 550
@@ -29,6 +30,9 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+        # Creating rectangle around mouse cursor with rect for crosshair
+        if event.type == pygame.MOUSEMOTION:
+            crosshair_rect = crosshair.get_rect(center=event.pos)
 
     # Applying background (background always on top)
     screen.blit(wood_bg, (0, 0))
@@ -40,6 +44,8 @@ while True:
     if water_position_y <= 590 or water_position_y >= 640:
         water_speed *= -1
 
+    # calling crosshair and the rectangle around mouse(crosshair_rect)
+    screen.blit(crosshair,crosshair_rect)
     # Setting images in game
     screen.blit(land_bg, (0, land_position_y))
     screen.blit(water_bg, (0, water_position_y))
@@ -47,5 +53,12 @@ while True:
     screen.blit(cloud1, (600, 150))
     screen.blit(cloud2, (800, 100))
     screen.blit(cloud2, (300, 100))
+    # constant game loop with update()
     pygame.display.update()
-    clock.tick(60)
+    # framerate of game
+    clock.tick(100)
+
+#     Rect recap for crosshair
+# 1. import the picture.
+# 2. we draw a rectangle around that surface.
+# 3. we place the center of that rectangle on the position of the mouse.
